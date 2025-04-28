@@ -26,6 +26,31 @@ namespace EastParts.Data.Configuration
             builder.HasOne(cbm => cbm.CarBrand)
                    .WithMany(cb => cb.CarBrandModels)
                    .HasForeignKey(cbm => cbm.CarBrandId);
+
+            builder.HasData(this.SeedCarBrandModels());
+        }
+
+        private List<CarBrandModels> SeedCarBrandModels()
+        {
+            List<CarBrandModels> carBrandModels = new List<CarBrandModels>()
+            {
+                new CarBrandModels()
+                {
+                    Id = new Guid("258C46B7-5930-4CE3-8BB0-658FD772C423"),
+                    Name = "F30",
+                    ImageUrl = "https://curvaconcepts.com/wp-content/uploads/silver-f30-bmw-340i-c300-4.jpg",
+                    CarBrandId = new Guid("148C46B7-5930-4CE3-8BB0-658FD772C423")
+                },
+
+                new CarBrandModels()
+                {
+                    Id = new Guid("259C46B7-5930-4CE3-8BB0-658FD772C424"),
+                    Name = "C-63",
+                    ImageUrl = "https://www.litchfieldmotors.com/wp-content/uploads/w204_top_p-1700x850.jpg",
+                    CarBrandId = new Guid("A0D1F2E4-3C5B-4E8F-9A7C-6D5B1A2F3C4D")
+                }
+            };
+            return carBrandModels;
         }
     }
 }
