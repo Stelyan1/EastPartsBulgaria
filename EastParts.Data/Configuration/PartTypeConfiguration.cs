@@ -26,6 +26,30 @@ namespace EastParts.Data.Configuration
             builder.HasOne(pt => pt.PartCategory)
                    .WithMany(pc => pc.PartTypes)
                    .HasForeignKey(pt => pt.PartCategoryId);
+
+            builder.HasData(this.SeedPartTypes());
+        }
+
+        private List<PartType> SeedPartTypes()
+        {
+            List<PartType> partTypes = new List<PartType>()
+            {
+                new PartType                 {
+                    Id = new Guid("420C96B7-5930-4CE3-8BB0-658FD772C423"),
+                    Name = "Brake Pads",
+                    ImageUrl = "https://mcprod.gsfcarparts.com/media/catalog/category/brake-pads_2.png",
+                    PartCategoryId = new Guid("367C96B7-5930-4CE3-8BB0-658FD772C423")
+                },
+
+                new PartType
+                {
+                    Id = new Guid("421C19B3-6030-4CE3-8BB0-658FD772C423"),
+                    Name = "Sport Springs",
+                    ImageUrl = "https://www.h-r.com/wp-content/uploads/2022/11/HR-Tieferlegungsfedern-1.png",
+                    PartCategoryId = new Guid("368C96B7-5930-4CE3-8BB0-658FD772C423")
+                }
+            };
+            return partTypes;
         }
     }
 }

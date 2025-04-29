@@ -23,10 +23,6 @@ namespace EastParts.Data.Models
         [Comment("Category Image")]
         public string ImageUrl { get; set; } = null!;
 
-        [Comment("Category belongs to a certain model")]
-        public Guid CarBrandModelsId { get; set; }
-        public virtual CarBrandModels CarBrandModels { get; set; } = null!;
-
         [Comment("Category has many part types")]
         public virtual ICollection<PartType> PartTypes { get; set; } 
             = new HashSet<PartType>();

@@ -27,10 +27,6 @@ namespace EastParts.Data.Models
         public Guid CarBrandId { get; set; }
         public virtual CarBrand CarBrand { get; set; } = null!;
 
-        [Comment("Part categories belonging to the model")]
-        public virtual ICollection<PartCategory> PartCategories { get; set; }
-            = new HashSet<PartCategory>();
-
         [Comment("Products belonging to the model")]
         public virtual ICollection<Product> Products { get; set; }
               = new HashSet<Product>();

@@ -32,13 +32,6 @@ namespace EastParts.Data.Models
         [Comment("Product price")]
         public decimal Price { get; set; }
 
-        [Comment("Product quantity")]
-        public int Quantity { get; set; }
-
-        [Comment("Product can be used for certain brand")]
-        public Guid CarBrandId { get; set; }
-        public virtual CarBrand CarBrand { get; set; } = null!;
-
         [Comment("Product can be used for certain model")]
         public Guid CarBrandModelsId { get; set; }
         public virtual CarBrandModels CarBrandModels { get; set; } = null!;

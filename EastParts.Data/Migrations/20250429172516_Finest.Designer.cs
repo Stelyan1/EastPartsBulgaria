@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EastParts.Data.Migrations
 {
     [DbContext(typeof(EastPartsDbContext))]
-    [Migration("20250428205512_InitialSeed")]
-    partial class InitialSeed
+    [Migration("20250429172516_Finest")]
+    partial class Finest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace EastParts.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a0d1f2e4-3c5b-4e8f-9a7c-6d5b1a2f3c4d"),
+                            Id = new Guid("149c57b8-5930-4ce3-8bb0-658fd772c423"),
                             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/1200px-Mercedes-Logo.svg.png",
                             Name = "Mercedes-Benz"
                         });
@@ -96,12 +96,12 @@ namespace EastParts.Data.Migrations
                             Id = new Guid("258c46b7-5930-4ce3-8bb0-658fd772c423"),
                             CarBrandId = new Guid("148c46b7-5930-4ce3-8bb0-658fd772c423"),
                             ImageUrl = "https://curvaconcepts.com/wp-content/uploads/silver-f30-bmw-340i-c300-4.jpg",
-                            Name = "F30"
+                            Name = "F30 340i"
                         },
                         new
                         {
                             Id = new Guid("259c46b7-5930-4ce3-8bb0-658fd772c424"),
-                            CarBrandId = new Guid("a0d1f2e4-3c5b-4e8f-9a7c-6d5b1a2f3c4d"),
+                            CarBrandId = new Guid("149c57b8-5930-4ce3-8bb0-658fd772c423"),
                             ImageUrl = "https://www.litchfieldmotors.com/wp-content/uploads/w204_top_p-1700x850.jpg",
                             Name = "C-63"
                         });
@@ -113,10 +113,6 @@ namespace EastParts.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Category Identification");
-
-                    b.Property<Guid>("CarBrandModelsId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Category belongs to a certain model");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -131,9 +127,21 @@ namespace EastParts.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarBrandModelsId");
-
                     b.ToTable("PartCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("367c96b7-5930-4ce3-8bb0-658fd772c423"),
+                            ImageUrl = "https://www.motortrend.com/uploads/f/31208710.jpg?w=768&width=768&q=75&format=webp",
+                            Name = "Brake System"
+                        },
+                        new
+                        {
+                            Id = new Guid("368c96b7-5930-4ce3-8bb0-658fd772c423"),
+                            ImageUrl = "https://media.istockphoto.com/id/1414449765/photo/wheel-structure-car-wheel-with-brake-isolated-on-a-white-background-3d-illustration.jpg?s=612x612&w=0&k=20&c=a8zRRvb0cbpPtjC7jMmqjVr5gKcNpx_ruPZJqPwGLYw=",
+                            Name = "Wheel Suspension"
+                        });
                 });
 
             modelBuilder.Entity("EastParts.Data.Models.PartType", b =>
@@ -163,6 +171,22 @@ namespace EastParts.Data.Migrations
                     b.HasIndex("PartCategoryId");
 
                     b.ToTable("PartTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("420c96b7-5930-4ce3-8bb0-658fd772c423"),
+                            ImageUrl = "https://mcprod.gsfcarparts.com/media/catalog/category/brake-pads_2.png",
+                            Name = "Brake Pads",
+                            PartCategoryId = new Guid("367c96b7-5930-4ce3-8bb0-658fd772c423")
+                        },
+                        new
+                        {
+                            Id = new Guid("421c19b3-6030-4ce3-8bb0-658fd772c423"),
+                            ImageUrl = "https://www.h-r.com/wp-content/uploads/2022/11/HR-Tieferlegungsfedern-1.png",
+                            Name = "Sport Springs",
+                            PartCategoryId = new Guid("368c96b7-5930-4ce3-8bb0-658fd772c423")
+                        });
                 });
 
             modelBuilder.Entity("EastParts.Data.Models.Product", b =>
@@ -171,10 +195,6 @@ namespace EastParts.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Product Identification");
-
-                    b.Property<Guid>("CarBrandId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Product can be used for certain brand");
 
                     b.Property<Guid>("CarBrandModelsId")
                         .HasColumnType("uniqueidentifier")
@@ -208,13 +228,7 @@ namespace EastParts.Data.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasComment("Product price");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int")
-                        .HasComment("Product quantity");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CarBrandId");
 
                     b.HasIndex("CarBrandModelsId");
 
@@ -232,17 +246,6 @@ namespace EastParts.Data.Migrations
                     b.Navigation("CarBrand");
                 });
 
-            modelBuilder.Entity("EastParts.Data.Models.PartCategory", b =>
-                {
-                    b.HasOne("EastParts.Data.Models.CarBrandModels", "CarBrandModels")
-                        .WithMany("PartCategories")
-                        .HasForeignKey("CarBrandModelsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CarBrandModels");
-                });
-
             modelBuilder.Entity("EastParts.Data.Models.PartType", b =>
                 {
                     b.HasOne("EastParts.Data.Models.PartCategory", "PartCategory")
@@ -256,19 +259,11 @@ namespace EastParts.Data.Migrations
 
             modelBuilder.Entity("EastParts.Data.Models.Product", b =>
                 {
-                    b.HasOne("EastParts.Data.Models.CarBrand", "CarBrand")
-                        .WithMany("Products")
-                        .HasForeignKey("CarBrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EastParts.Data.Models.CarBrandModels", "CarBrandModels")
                         .WithMany("Products")
                         .HasForeignKey("CarBrandModelsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("CarBrand");
 
                     b.Navigation("CarBrandModels");
                 });
@@ -276,14 +271,10 @@ namespace EastParts.Data.Migrations
             modelBuilder.Entity("EastParts.Data.Models.CarBrand", b =>
                 {
                     b.Navigation("CarBrandModels");
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("EastParts.Data.Models.CarBrandModels", b =>
                 {
-                    b.Navigation("PartCategories");
-
                     b.Navigation("Products");
                 });
 

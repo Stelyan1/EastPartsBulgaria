@@ -21,9 +21,5 @@ namespace EastParts.Data.Models
         [Comment("Models belonging to the brand")]
         public virtual ICollection<CarBrandModels> CarBrandModels { get; set; } 
             = new HashSet<CarBrandModels>();
-
-        [Comment("Products belonging to the brand")]
-        public virtual ICollection<Product> Products { get; set; }
-            = new HashSet<Product>();
     }
 }
