@@ -1,0 +1,21 @@
+﻿@using EastParts.Data.Models
+@model IEnumerable<EastParts.Data.Models.CarBrand>
+
+
+<h1 class="text-center">All Car Brands</h1>
+
+<div class="container">
+	<div class="row">
+		@foreach (var carBrand in Model)
+		{
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm">
+					<img src="@carBrand.ImageUrl" class="card-img-top" alt="@carBrand.Name">
+					<div class="card-body">
+						<h5 class="card-title">@carBrand.Name</h5>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>
