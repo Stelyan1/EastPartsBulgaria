@@ -1,0 +1,20 @@
+﻿@using EastParts.Data.Models
+@model IEnumerable<EastParts.Data.Models.PartCategory>
+
+<h1 class="text-center">All Part Categories</h1>
+
+<div class="container">
+	<div class="row">
+		@foreach (var partCategories in Model)
+		{
+			<div class="col-md-4">
+				<div class="card mb-4 shadow-sm">
+					<img src="@partCategories.ImageUrl" class="card-img-top" alt="@partCategories.Name">
+					<div class="card-body">
+						<h5 class="card-title">@partCategories.Name</h5>
+					</div>
+				</div>
+			</div>
+		}
+	</div>
+</div>

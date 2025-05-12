@@ -37,6 +37,8 @@ namespace EastParts.Data.Configuration
             builder.HasOne(p => p.CarBrandModels)
                    .WithMany(cb => cb.Products)
                    .HasForeignKey(p => p.CarBrandModelsId);
+
+            builder.HasData(this.SeedProducts());
         }
 
         private List<Product> SeedProducts()
